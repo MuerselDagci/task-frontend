@@ -1,5 +1,7 @@
-<template>
-  <div class="about">
-    <h1>This is an about page</h1>
+<template id="todo-template">
+  <div class="todo-item">
+    <input type="checkbox" class="todo-checkbox">
+    <span class="todo-text"></span>
+    <button class="todo-delete">Delete</button>
   </div>
 </template>
