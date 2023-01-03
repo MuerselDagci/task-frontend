@@ -25,7 +25,7 @@ export default {
 
 <style scoped>
 .navbar{
-  background-color: #00b8d4;
+  background-color:#bf8970;
   display: flex;
   align-items: center;
   justify-content: space-between;

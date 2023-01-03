@@ -29,22 +29,42 @@
           <select id="wiederholung" class="form-select" v-model="wiederholung" required>
             <option value="" selected disabled>Choose...</option>
             <option value="WOCHENTLICH">WOCHENTLICH</option>
-            <option value="TAEGLICH">FEMALE</option>
+            <option value="TAEGLICH">TAEGLICH</option>
             <option value="MONATLICH">MONATLICH</option>
+            <option value="JAEHRLICH">JAEHRLICH</option>
           </select>
           <div class="invalid-feedback">
             Bitte wählen Sie eins aus.
           </div>
-
         </div>
+
         <div class="mb-3">
           <label for="status" class="form-label">Status</label>
           <input type="text" class="form-control" id="status" v-model="status" >
         </div>
+
         <div class="mb-3">
           <label for="duedate" class="form-label">Duedate</label>
           <input type="text" class="form-control" id="duedate" v-model="duedate" >
         </div>
+
+        <div class="mb-3">
+          <label for="mitarbeiter" class="form-label">Mitarbeiter</label>
+          <select id="mitarbeiter" class="form-select" v-model="mitarbeiter" >
+            <option value="" selected disabled>Choose...</option>
+            <option value="MA_1">MA_1</option>
+            <option value="MA_2">MA_2</option>
+            <option value="MA_3">MA_3</option>
+            <option value="MA_4">MA_1</option>
+            <option value="Geschaeftsfuehrer">Geschaeftsfuehrer</option>
+            <option value="Buchhaltung">Buchhaltung</option>
+            <option value="IT-Abteilung">IT-Abteilung</option>
+          </select>
+          <div class="invalid-feedback">
+            Bitte wählen Sie eins aus.
+          </div>
+        </div>
+
         <div class="mt-5">
           <button class="btn btn-primary me-3" type="submit" @click="createTask">Create</button>
           <button class="btn btn-danger" type="reset">Reset</button>
@@ -63,7 +83,8 @@ export default {
       beschreibung: '',
       status: '',
       wiederholung: '',
-      duedate: ''
+      duedate: '',
+      mitarbeiter:''
     }
   },
   methods: {
@@ -80,7 +101,8 @@ export default {
           beschreibung: this.beschreibung,
           status: this.status,
           wiederholung: this.wiederholung,
-          duedate: this.duedate
+          duedate: this.duedate,
+          mitarbeiter: this.mitarbeiter
         })
 
         const requestOptions = {

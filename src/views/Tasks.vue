@@ -1,13 +1,15 @@
 <template>
-  <h1>Tasks</h1>
-
+  <h1>
+    <img src="../assets/aufgabenicon.jpg" height="35" width="35" alt="Icon"/>
+    Ihre Tasks
+  </h1>
   <div class="container-fluid">
     <tasks-card-list :tasks="this.tasks"></tasks-card-list>
   </div>
-  <tasks-create-form :persons="this.persons"></tasks-create-form>
-  <label for="search">Suche:</label><br>
-  <input type="text" id="search" name="search"><br>
-  <input type="submit" value="Suchen">
+  <tasks-create-form :tasks="this.tasks"></tasks-create-form>
+
+
+
 
 
 </template>
@@ -15,9 +17,10 @@
 import TasksCreateForm from '@/components/TasksCreateForm'
 import TasksCardList from '@/components/TasksCardList'
 import TasksSearch from "@/components/TasksSearch";
+import TaskCard from "@/components/TaskCard";
 export default {
   name: 'Tasks',
-  components: {TasksSearch, TasksCardList, TasksCreateForm },
+  components: {TaskCard, TasksSearch, TasksCardList, TasksCreateForm },
   data () {
     return {
       tasks: []
@@ -40,6 +43,12 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  text-align: left;
+  margin-left: 30px;
+  margin-top: 20px;
 
+
+}
 
 </style>
