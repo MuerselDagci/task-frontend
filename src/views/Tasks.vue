@@ -8,19 +8,15 @@
   </div>
   <tasks-create-form :tasks="this.tasks"></tasks-create-form>
 
-
-
-
-
 </template>
 <script>
 import TasksCreateForm from '@/components/TasksCreateForm'
 import TasksCardList from '@/components/TasksCardList'
-import TasksSearch from "@/components/TasksSearch";
-import TaskCard from "@/components/TaskCard";
+import TasksSearch from '@/components/TasksSearch'
+import TaskCard from '@/components/TaskCard'
 export default {
   name: 'Tasks',
-  components: {TaskCard, TasksSearch, TasksCardList, TasksCreateForm },
+  components: { TaskCard, TasksSearch, TasksCardList, TasksCreateForm },
   data () {
     return {
       tasks: []
@@ -47,7 +43,6 @@ h1 {
   text-align: left;
   margin-left: 30px;
   margin-top: 20px;
-
 
 }
 

@@ -84,13 +84,13 @@ export default {
       status: '',
       wiederholung: '',
       duedate: '',
-      mitarbeiter:''
+      mitarbeiter: ''
     }
   },
   methods: {
     createTask () {
       const valid = this.validate()
-      if(valid){
+      if (valid) {
         const endpoint = process.env.VUE_APP_BACKEND_BASE_URL + '/api/v1/tasksss'
 
         const headers = new Headers()
@@ -115,10 +115,10 @@ export default {
           .catch(error => console.log('error', error))
       }
     },
-    validate(){
+    validate () {
       let valid = true
       // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      var forms = document.querySelectorAll('.needs-validation')
+      const forms = document.querySelectorAll('.needs-validation')
 
       // Loop over them and prevent submission
       Array.from(forms).forEach(form => {
@@ -134,8 +134,8 @@ export default {
       })
       return valid
     }
-    }
   }
+}
 
 </script>
 

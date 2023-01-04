@@ -1,7 +1,50 @@
-<template id="todo-template">
-  <div class="todo-item">
-    <input type="checkbox" class="todo-checkbox">
-    <span class="todo-text"></span>
-    <button class="todo-delete">Delete</button>
+<template>
+  <h1>
+    <img src="../assets/aufgabenicon.jpg" height="35" width="35" alt="Icon"/>
+    Ihre Abgeschlossenen Aufgaben
+  </h1>
+  <div class="container-fluid">
+    <completed-task-card-list :tasks="this.tasks"></completed-task-card-list>
   </div>
+  <tasks-create-form :tasks="this.tasks"></tasks-create-form>
+
 </template>
+<script>
+import TasksCreateForm from '@/components/TasksCreateForm'
+import TasksCardList from '@/components/TasksCardList'
+import TasksSearch from '@/components/TasksSearch'
+import TaskCard from '@/components/TaskCard'
+import CompletedTaskCardList from "@/components/CompletedTaskCardList";
+export default {
+  name: 'Tasks',
+  components: {CompletedTaskCardList, TaskCard, TasksSearch, TasksCardList, TasksCreateForm },
+  data () {
+    return {
+      tasks: []
+    }
+  },
+  mounted () {
+    const endpoint = process.env.VUE_APP_BACKEND_BASE_URL + '/api/v1/tasksss'
+    const requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    }
+    fetch(endpoint, requestOptions)
+      .then(response => response.json())
+      .then(result => result.forEach(task => {
+        this.tasks.push(task)
+      }))
+      .catch(error => console.log('error', error))
+  }
+}
+</script>
+
+<style scoped>
+h1 {
+  text-align: left;
+  margin-left: 30px;
+  margin-top: 20px;
+
+}
+
+</style>

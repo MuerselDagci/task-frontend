@@ -10,14 +10,14 @@
 
 <script>
 export default {
-  name: "TasksSearch",
-  data(){
+  name: 'TasksSearch',
+  data () {
     return {
       searchTerm: ''
     }
   },
-  methods:{
-    handleSearch() {
+  methods: {
+    handleSearch () {
       // Senden Sie eine HTTP-Anforderung an den Backend-Endpunkt, um die Aufgaben anhand des Suchbegriffs zu suchen
       const endpoint = `${process.env.VUE_APP_BACKEND_BASE_URL}/api/v1/tasksss?titel=${this.searchTerm}`
 

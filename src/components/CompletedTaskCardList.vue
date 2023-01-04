@@ -1,6 +1,6 @@
 <template xmlns:margin-right="http://www.w3.org/1999/xhtml">
   <div class="search-container">
-  <input v-model="searchTerm" type="text" placeholder="Suchen..." class="search-input">
+    <input v-model="searchTerm" type="text" placeholder="Suchen..." class="search-input">
   </div>
   <table class="table mb-0">
     <thead>
@@ -38,7 +38,7 @@
           class="btn btn- btn-sm rounded-0"><img src="../assets/delete.png" height="20" width="20"/></i></a>
       </td>
       <td class="align-middle">
-        <a @click="updateTaskBeschreibung(task)" data-mdb-toggle="tooltip" title="Erledigt"><i
+        <a @click="finishTasks(task)" data-mdb-toggle="tooltip" title="Erledigt"><i
           class="btn btn-outline-"><img src="../assets/check-mark-1292787__340.jpg" height="20" width="20"/></i></a>
       </td>
     </tr>
@@ -54,7 +54,7 @@ import TaskCard from '@/components/TaskCard'
 import axios from 'axios'
 export default {
 
-  name: 'TasksCardList',
+  name: 'CompletedTaskCardList',
   components: {
 
   },
@@ -74,8 +74,8 @@ export default {
     }
   },
   computed: {
-    filteredTasks () {
-      return this.tasks.filter(task => task.status.includes(this.searchTerm))
+    filteredTasks() {
+      return this.tasks.filter(task => task.beschreibung.includes('abgeschlossen') && task.status.includes(this.searchTerm),)
     }
   },
   methods: {
@@ -98,32 +98,6 @@ export default {
         element.style.textDecoration = 'line-through'
       }
     },
-     updateTaskBeschreibung(task) {
-       const headers = new Headers();
-       headers.append("Content-Type", "application/json");
-
-       const payload = JSON.stringify({
-         "id":task.id,
-         "status":task.status,
-         "titel":task.titel,
-         "wiederholung":task.wiederholung,
-         "duedate":task.duedate,
-         "beschreibung": "abgeschlossen",
-         "mitarbeiter":task.mitarbeiter
-       });
-
-       const requestOptions = {
-         method: 'PUT',
-         headers: headers,
-         body: payload,
-         redirect: 'follow'
-       };
-    const m=`http://localhost:8080/api/v1/tasksss/${task.id}`
-       fetch(m, requestOptions)
-         .then(response => response.text())
-         .then(result => console.log(result))
-         .catch(error => console.log('error', error));
-     },
     getEmptyMessage () {
       return this.filteredTasks.length > 0 ? '' : 'Keine Aufgaben'
     },
