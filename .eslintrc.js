@@ -12,8 +12,8 @@ module.exports = {
   },
   rules: {
     'no-console': 'off', // Deaktiviert die Regel "no-console"
-    'semi': 'off', // Deaktiviert die Regel "semi"
-    'quotes': 'off', // Deaktiviert die Regel "quotes"
+    semi: 'off', // Deaktiviert die Regel "semi"
+    quotes: 'off' // Deaktiviert die Regel "quotes"
   },
   overrides: [
     {

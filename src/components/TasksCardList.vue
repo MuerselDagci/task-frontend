@@ -144,20 +144,15 @@ export default {
     getAvatar (task) {
       if (task.mitarbeiter === 'MA_1') {
         return require('../assets/ma1.jpg')
-      }
-      else if(task.mitarbeiter === 'MA_2')  {
+      } else if (task.mitarbeiter === 'MA_2') {
         return require('../assets/ma2.jpg')
-      }
-      else if(task.mitarbeiter === 'MA_3')  {
+      } else if (task.mitarbeiter === 'MA_3') {
         return require('../assets/ma2.jpg')
-      }
-      else if(task.mitarbeiter === 'Geschaeftsfuehrer')  {
+      } else if (task.mitarbeiter === 'Geschaeftsfuehrer') {
         return require('../assets/elon.jpg')
-      }
-      else if (task.mitarbeiter === 'Buchhaltung'){
+      } else if (task.mitarbeiter === 'Buchhaltung') {
         return require('../assets/buchhaltung.jpeg')
-      }
-      else if(task.mitarbeiter === 'IT_Abteilung'){
+      } else if (task.mitarbeiter === 'IT_Abteilung') {
         return require('../assets/it.jpg')
       }
     },

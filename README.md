@@ -1,29 +1,19 @@
 # task-frontend
+ToDo Liste für Unternehmen/Natürlich auch Private Nutzer.
 
-## Project setup
-```
-npm install
-```
+Zuerst müssen Sie auf der Menüleiste auf Tasks klicken und dann auf Alle Tasks.
+Dort können sie mit einem Klick auf den Button "Task anlegen" eine Aufgabe erstellen.
+Nachdem Sie die benötigten Informationen angegeben haben, aktualisiert sich die Seite von neu,
+und die Aufgabe wird auf der Tabelle erscheinen.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Wenn Sie auf der Menüleiste auf Tasks klicken, haben sie noch zwei andere Seiten zur Verfügung.
+Die 'Abgeschlossene Aufgaben' Seite zeigt Ihnen die Aufgaben, die sie bereits erledigt haben und
+mit dem grünen Haken markiert haben.
+Die 'Ihre Aufgaben für heute' Seite zeigt Ihnen, die Aufgaben, die an dem heutigen Tag anstehen.
 
-### Compiles and minifies for production
-```
-npm run build
-```
+Mit der Suchleiste können sie die Tasks nach ihrem Titel suchen.
 
-### Run your unit tests
-```
-npm run test:unit
-```
+Wenn sie auf den Mülleimer neben einem Task klicken, wird die Aufgabe gelöscht.
+Beim grünem Haken wird sie als abgeschlossen markiert und kommt in die jeweilige Seite.
 
-### Lints and fixes files
-```
-npm run lint
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

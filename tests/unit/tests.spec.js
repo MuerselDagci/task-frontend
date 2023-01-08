@@ -1,7 +1,6 @@
 import { mount } from '@vue/test-utils'
 import TasksCardList from "@/components/TasksCardList";
 
-
 describe('Testing TaskCardList.vue', () => {
   it('render task', () => {
     // when
@@ -9,7 +8,7 @@ describe('Testing TaskCardList.vue', () => {
       propsData: {
         tasks: [
           {
-            id:2,
+            id: 2,
             titel: '',
             beschreibung: '',
             status: '',
@@ -18,7 +17,7 @@ describe('Testing TaskCardList.vue', () => {
             mitarbeiter: ''
           },
           {
-            id:3,
+            id: 3,
             titel: '',
             beschreibung: '',
             status: '',
@@ -52,7 +51,6 @@ describe('Testing TaskCardList.vue', () => {
   })
 
   it('delete task', () => {
-
     const wrapper = shallowMount(TasksCardList, {
       propsData: {
         tasks: [
@@ -65,7 +63,6 @@ describe('Testing TaskCardList.vue', () => {
     })
 
     wrapper.vm.deleteTask({ id: 2, status: 'task2' })
-
 
     expect(wrapper.vm.tasks).toHaveLength(2)
     expect(wrapper.vm.tasks).not.toContainEqual({ id: 2, status: 'task2' })
