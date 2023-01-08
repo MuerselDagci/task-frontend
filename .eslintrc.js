@@ -11,9 +11,9 @@ module.exports = {
     parser: '@babel/eslint-parser'
   },
   rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'vue/multi-word-component-names': 'off'
+    'no-console': 'off', // Deaktiviert die Regel "no-console"
+    'semi': 'off', // Deaktiviert die Regel "semi"
+    'quotes': 'off', // Deaktiviert die Regel "quotes"
   },
   overrides: [
     {
@@ -26,4 +26,5 @@ module.exports = {
       }
     }
   ]
+
 }

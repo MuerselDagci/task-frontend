@@ -1,6 +1,6 @@
-<template xmlns:margin-right="http://www.w3.org/1999/xhtml">
+<template>
   <div class="search-container">
-    <input v-model="searchTerm" type="text" placeholder="Suchen..." class="search-input">
+    <input v-model="localSearchTerm" type="text" placeholder="Suchen..." class="search-input">
   </div>
   <table class="table mb-0">
     <thead>
@@ -8,8 +8,9 @@
       <th scope="col">Mitarbeiter</th>
       <th scope="col">Aufgabe</th>
       <th scope="col">Beschreibung</th>
-      <th scope="col">Duedate</th>
+      <th scope="col">Fällig am/bis</th>
       <th scope="col">Wiederholung</th>
+      <th scope="col">Status</th>
     </tr>
     </thead>
     <tbody>
@@ -34,12 +35,11 @@
         <h6 class="mb-0"><span class="badge bg-primary">{{task.wiederholung}}</span></h6>
       </td>
       <td class="align-middle">
-        <a @click="deleteTask(task)" data-mdb-toggle="tooltip" title="Delete"><i
-          class="btn btn- btn-sm rounded-0"><img src="../assets/delete.png" height="20" width="20"/></i></a>
+        <h6 class="mb-0"><span class="badge bg-success">{{task.titel}}</span></h6>
       </td>
       <td class="align-middle">
-        <a @click="finishTasks(task)" data-mdb-toggle="tooltip" title="Erledigt"><i
-          class="btn btn-outline-"><img src="../assets/check-mark-1292787__340.jpg" height="20" width="20"/></i></a>
+        <a @click="deleteTask(task)" data-mdb-toggle="tooltip" title="Delete"><i
+          class="btn btn- btn-sm rounded-0"><img src="../assets/delete.png" height="20" width="20"/></i></a>
       </td>
     </tr>
     </tbody>
@@ -50,10 +50,8 @@
   </div>
 </template>
 <script>
-import TaskCard from '@/components/TaskCard'
 import axios from 'axios'
 export default {
-
   name: 'CompletedTaskCardList',
   components: {
 
@@ -70,12 +68,13 @@ export default {
   },
   data () {
     return {
-      searchTerm: ''
+      localSearchTerm: '',
+      tasksCopy: this.tasks
     }
   },
   computed: {
-    filteredTasks() {
-      return this.tasks.filter(task => task.beschreibung.includes('abgeschlossen') && task.status.includes(this.searchTerm),)
+    filteredTasks () {
+      return this.tasks.filter(task => task.titel.includes('abgeschlossen') && task.status.includes(this.localSearchTerm))
     }
   },
   methods: {
@@ -85,7 +84,7 @@ export default {
           // Entfernt die Aufgabe aus der `tasks`-Liste
           const index = this.tasks.indexOf(task)
           if (index !== -1) {
-            this.tasks.splice(index, 1)
+            this.tasksCopy.splice(index, 1)
           }
         })
         .catch(error => {
@@ -104,10 +103,24 @@ export default {
 
     getAvatar (task) {
       if (task.mitarbeiter === 'MA_1') {
-        return require('../assets/5x7.jpg')
-      } else if (task.mitarbeiter === 'MA_2') {
-        return require('../assets/5x7.jpg')
+        return require('../assets/ma1.jpg')
       }
+      else if(task.mitarbeiter === 'MA_2')  {
+        return require('../assets/ma2.jpg')
+      }
+      else if(task.mitarbeiter === 'MA_3')  {
+        return require('../assets/ma2.jpg')
+      }
+      else if(task.mitarbeiter === 'Geschaeftsfuehrer')  {
+        return require('../assets/elon.jpg')
+      }
+      else if (task.mitarbeiter === 'Buchhaltung'){
+        return require('../assets/buchhaltung.jpeg')
+      }
+      else if(task.mitarbeiter === 'IT_Abteilung'){
+        return require('../assets/it.jpg')
+      }
+
     }
   }
 }

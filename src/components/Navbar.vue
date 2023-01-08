@@ -7,10 +7,18 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-          <a class="nav-link" href="#">Tasks</a>
-          <a class="nav-link" href="#">Kontakt</a>
-          <a class="nav-link disabled">Über uns</a>
+          <router-link class="nav-link" to="/" prefetch>Home</router-link>
+          <div class="dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="tasksDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Tasks
+            </a>
+            <div class="dropdown-menu" aria-labelledby="tasksDropdown">
+              <router-link class="dropdown-item" to=/tasks prefetch>Alle Tasks</router-link>
+              <router-link class="dropdown-item" to=/about prefetch>Abgeschlossene Aufgaben</router-link>
+              <router-link class="dropdown-item" to=/today prefetch>Ihre Aufgaben für heute</router-link>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -32,5 +40,4 @@ export default {
   padding: 0 20px;
   height: 50px;
 }
-
 </style>

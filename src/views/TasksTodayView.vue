@@ -1,21 +1,19 @@
-<template>
-  <h1>
-    <img src="../assets/aufgabenicon.jpg" height="35" width="35" alt="Icon"/>
-    Ihre Tasks
-  </h1>
-  <div class="container-fluid">
-    <tasks-card-list :tasks="this.tasks"></tasks-card-list>
-  </div>
-  <tasks-create-form :tasks="this.tasks"></tasks-create-form>
-
+<template><h1>
+  <img src="../assets/aufgabenicon.jpg" height="35" width="35" alt="Icon"/>
+  Ihre Aufgaben für Heute
+</h1>
+<div class="container-fluid">
+  <TodayTasks :tasks="this.tasks"></TodayTasks>
+</div>
 </template>
-<script>
-import TasksCreateForm from '@/components/TasksCreateForm'
-import TasksCardList from '@/components/TasksCardList'
 
+<script>
+import TodayTasks from '@/components/TodayTasks'
 export default {
   name: 'Tasks',
-  components: { TasksCardList, TasksCreateForm },
+  components: {
+    TodayTasks
+  },
   data () {
     return {
       tasks: []
@@ -35,6 +33,7 @@ export default {
       .catch(error => console.log('error', error))
   }
 }
+
 </script>
 
 <style scoped>
@@ -42,8 +41,6 @@ h1 {
   text-align: left;
   margin-left: 30px;
   margin-top: 20px;
-}
-body {
-  background-color: #cd7f32;
+
 }
 </style>

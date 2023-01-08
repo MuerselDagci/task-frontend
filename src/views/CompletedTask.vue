@@ -11,13 +11,10 @@
 </template>
 <script>
 import TasksCreateForm from '@/components/TasksCreateForm'
-import TasksCardList from '@/components/TasksCardList'
-import TasksSearch from '@/components/TasksSearch'
-import TaskCard from '@/components/TaskCard'
-import CompletedTaskCardList from "@/components/CompletedTaskCardList";
+import CompletedTaskCardList from '@/components/CompletedTaskCardList'
 export default {
   name: 'Tasks',
-  components: {CompletedTaskCardList, TaskCard, TasksSearch, TasksCardList, TasksCreateForm },
+  components: { CompletedTaskCardList, TasksCreateForm },
   data () {
     return {
       tasks: []

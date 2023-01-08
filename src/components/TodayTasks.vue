@@ -1,11 +1,6 @@
-<template >
-  <button class="btn bronze-button sticky-button" data-bs-toggle="offcanvas" data-bs-target="#tasks-create-offcanvas" aria-controls="#tasks-create-offcanvas">
-    Task anlegen
-    <i class="bi bi-tasks-plus-fill"></i>
-  </button>
-
+<template>
   <div class="search-container">
-  <input v-model="localSearchTerm" type="text" placeholder="Suchen..." class="search-input">
+    <input v-model="localSearchTerm" type="text" placeholder="Suchen..." class="search-input">
   </div>
   <table class="table mb-0">
     <thead>
@@ -16,12 +11,10 @@
       <th scope="col">Fällig am/bis</th>
       <th scope="col">Wiederholung</th>
       <th scope="col">Status</th>
-
     </tr>
     </thead>
     <tbody>
-
-    <tr class="fw-normal" v-for="task in filteredTasks" :key="task.id" :id="task.id">
+    <tr class="fw-normal" v-for="task in todayTasks" :key="task.id" :id="task.id">
       <th>
         <img :src="getAvatar(task)" height="850" width="614"
              class="shadow-1-strong rounded-circle" alt="avatar 1"
@@ -47,11 +40,6 @@
         <a @click="deleteTask(task)" data-mdb-toggle="tooltip" title="Delete"><i
           class="btn btn- btn-sm rounded-0"><img src="../assets/delete.png" height="20" width="20"/></i></a>
       </td>
-      <td class="align-middle">
-        <a @click="finishTasks(task);updateTaskStatus(task);showTaskCompletedWindow()" data-mdb-toggle="tooltip" title="Erledigt">
-          <i class="btn btn-outline-"><img src="../assets/check-mark-1292787__340.jpg" height="20" width="20"/></i>
-        </a>
-      </td>
     </tr>
     </tbody>
 
@@ -61,35 +49,41 @@
   </div>
 </template>
 <script>
-
 import axios from 'axios'
-
 export default {
 
-  name: 'TasksCardList',
-  components: {
-
-  },
+  name: 'TodayTasks',
+  components: {},
   props: {
     tasks: {
       type: Array,
       required: true
     },
-    SearchTerm: {
+    searchTerm: {
       type: String,
       required: true
     }
   },
   data () {
     return {
-      localSearchTerm: '',
-      tasksCopy: this.tasks
+      localSearchTerm: ''
     }
   },
   computed: {
     filteredTasks () {
-      return this.tasks.filter(task => task.status.includes(this.localSearchTerm))
+      return this.tasks.filter(task => task.titel.includes('abgeschlossen') && task.status.includes(this.localSearchTerm))
+    },
+    todayTasks () {
+      const today = new Date()
+      const day = today.getDate()
+      const month = today.getMonth() + 1
+      const year = today.getFullYear()
+      const todayString = `${day}.${month}.${year}`
+      console.log(todayString)
+      return this.tasks.filter(task => task.duedate === todayString && task.status.includes(this.localSearchTerm))
+      console.log(today)
     }
+
   },
   methods: {
     deleteTask (task) {
@@ -111,34 +105,8 @@ export default {
         element.style.textDecoration = 'line-through'
       }
     },
-    updateTaskStatus (task) {
-      const headers = new Headers()
-      headers.append('Content-Type', 'application/json')
-
-      const payload = JSON.stringify({
-        id: task.id,
-        status: 'abgeschlossen',
-        titel: task.status,
-        wiederholung: task.wiederholung,
-        duedate: task.duedate,
-        beschreibung: task.beschreibung,
-        mitarbeiter: task.mitarbeiter
-      })
-
-      const requestOptions = {
-        method: 'PUT',
-        headers: headers,
-        body: payload,
-        redirect: 'follow'
-      }
-      const m = `http://localhost:8080/api/v1/tasksss/${task.id}`
-      fetch(m, requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error))
-    },
     getEmptyMessage () {
-      return this.filteredTasks.length > 0 ? '' : 'Keine Aufgaben'
+      return this.filteredTasks.length > 0 ? '' : ''
     },
 
     getAvatar (task) {
@@ -160,21 +128,9 @@ export default {
       else if(task.mitarbeiter === 'IT_Abteilung'){
         return require('../assets/it.jpg')
       }
-    },
-    showTaskCompletedWindow () {
-      const div = document.createElement('div')
-      div.innerHTML = 'Ihre Aufgabe wurde erledigt'
-      div.style.textAlign = 'center'
-      div.style.color = '#CD7F32'
-      document.body.appendChild(div)
 
-      setTimeout(function () {
-        div.style.display = 'none'
-      }, 5000)
     }
-
   }
-
 }
 
 </script>
@@ -194,15 +150,14 @@ export default {
   color:#bf8970;
   margin-bottom: 50px;
 }
-.bronze-button{
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 15px;
-  border-radius: 30px;
-  background-color: #cd7f32;
-  color: white;
-  border-radius: 0;
+.search-input {
+  padding: 0.5rem;
+  border: 2px solid #333;
+  border-radius: 0.25rem;
+  color: #bf8970;
+  float:right;
+  margin-right: 20px;
+  margin-top: -50px;
 }
 
 </style>

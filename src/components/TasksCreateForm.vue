@@ -1,8 +1,4 @@
 <template>
-  <button class="btn btn-success sticky-button" data-bs-toggle="offcanvas" data-bs-target="#tasks-create-offcanvas" aria-controls="#tasks-create-offcanvas">
-    <i class="bi bi-tasks-plus-fill"></i>
-  </button>
-
   <div class="offcanvas offcanvas-end" tabindex="-1" id="tasks-create-offcanvas" aria-labelledby="offcanvas-label">
     <div class="offcanvas-header">
       <h5 id="offcanvas-label">New Task</h5>
@@ -32,6 +28,7 @@
             <option value="TAEGLICH">TAEGLICH</option>
             <option value="MONATLICH">MONATLICH</option>
             <option value="JAEHRLICH">JAEHRLICH</option>
+            <option value="UNKNOWN">UNKNOWN</option>
           </select>
           <div class="invalid-feedback">
             Bitte wählen Sie eins aus.
@@ -58,7 +55,7 @@
             <option value="MA_4">MA_1</option>
             <option value="Geschaeftsfuehrer">Geschaeftsfuehrer</option>
             <option value="Buchhaltung">Buchhaltung</option>
-            <option value="IT-Abteilung">IT-Abteilung</option>
+            <option value="IT_Abteilung">IT_Abteilung</option>
           </select>
           <div class="invalid-feedback">
             Bitte wählen Sie eins aus.
@@ -75,6 +72,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'TasksCreateForm',
   data () {
@@ -117,10 +115,8 @@ export default {
     },
     validate () {
       let valid = true
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
       const forms = document.querySelectorAll('.needs-validation')
 
-      // Loop over them and prevent submission
       Array.from(forms).forEach(form => {
         form.addEventListener('submit', event => {
           if (!form.checkValidity()) {
@@ -136,15 +132,8 @@ export default {
     }
   }
 }
-
 </script>
 
 <style scoped>
-.sticky-button{
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 15px;
-  border-radius: 30px;
-}
+
 </style>

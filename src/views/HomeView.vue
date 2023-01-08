@@ -1,33 +1,31 @@
 <template>
   <div class="home">
-    <h1>Willkommen bei meiner Todo-App</h1>
-    <p>Dies ist meine neue Todo-App, mit der Sie Ihre Aufgaben einfach verwalten können. Legen Sie los, indem Sie auf den Button unten rechts auf der Tasks Seite klicken.</p>
+    <h1>Willkommen bei der ultimativen To-do App</h1> <p>Verwalten Sie Ihre Aufgaben und erreichen Sie Ihre Ziele mit unserer benutzerfreundlichen App. Fügen Sie Aufgaben hinzu, markieren Sie sie als abgeschlossen und halten Sie Ihren Fortschritt im Auge. </p>
+
   </div>
+
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
+  path: 'home',
   name: 'HomeView',
   components: {
-    HelloWorld
   }
 }
 </script>
 
 <style scoped>
 body {
-  background-color: #fff1e6; /* neue Hintergrundfarbe */
+  background-color: #f8f9fa;
   font-family: Arial, sans-serif;
-  color: #333;
 }
 
 /* Stil für die Überschrift */
 h1 {
   text-align: center;
-  color: #00b8d4;
+  color: #bf8970;
 }
 
 /* Stil für den Text */
@@ -36,6 +34,11 @@ p {
   margin: 0 auto;
   font-size: 18px;
   line-height: 1.5;
+
 }
+.home{
+  background-color: #D2B773;
+}
+
 
 </style>
