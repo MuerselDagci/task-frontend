@@ -4,4 +4,6 @@ import router from './router'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min'
 
-createApp(App).use(router).mount('#app')
+createApp(App).use(router).mount('#app', {
+  silent: true
+})

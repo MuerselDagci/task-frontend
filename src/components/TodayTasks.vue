@@ -40,7 +40,20 @@
         <a @click="deleteTask(task)" data-mdb-toggle="tooltip" title="Delete"><i
           class="btn btn- btn-sm rounded-0"><img src="../assets/delete.png" height="20" width="20"/></i></a>
       </td>
+      <td class="align-middle">
+        <a @click="finishTasks(task);updateTaskStatus(task);showTaskCompletedWindow()" data-mdb-toggle="tooltip" title="Erledigt">
+          <i class="btn btn-outline-"><img src="../assets/check-mark-1292787__340.jpg" height="20" width="20"/></i>
+        </a>
+      </td>
     </tr>
+    <button class="dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Sortieren nach.
+    </button>
+    <ul class="dropdown-menu">
+      <li><button @click="sortTasksByTitel" class="dropdown-item" type="button">Titel</button></li>
+      <li><button @click="sortTasksByWiederholung" class="dropdown-item" type="button">Wiederholung</button></li>
+      <li><button @click="sortTasksByDueDate" class="dropdown-item" type="button">Fällig am/bis</button></li>
+    </ul>
     </tbody>
 
   </table>
@@ -66,7 +79,9 @@ export default {
   },
   data () {
     return {
-      localSearchTerm: ''
+      localSearchTerm: '',
+      tasksCopy: this.tasks
+
     }
   },
   computed: {
@@ -80,19 +95,57 @@ export default {
       const year = today.getFullYear()
       const todayString = `${day}.${month}.${year}`
       console.log(todayString)
-      return this.tasks.filter(task => task.duedate === todayString && task.status.includes(this.localSearchTerm))
-      console.log(today)
+      return this.tasksCopy.filter(task => task.duedate === todayString && task.status.includes(this.localSearchTerm))
     }
 
   },
   methods: {
+    sortTasksByWiederholung () {
+      this.tasksCopy.sort((a, b) => {
+        const repetitionA = a.wiederholung.toLowerCase();
+        const repetitionB = b.wiederholung.toLowerCase();
+        if (repetitionA < repetitionB) {
+          return -1;
+        }
+        if (repetitionA > repetitionB) {
+          return 1;
+        }
+        return 0;
+      });
+    },
+    sortTasksByTitel () {
+      this.tasksCopy.sort((a, b) => {
+        const titelA = a.status.toLowerCase();
+        const titelB = b.status.toLowerCase();
+        if (titelA < titelB) {
+          return -1;
+        }
+        if (titelA > titelB) {
+          return 1;
+        }
+        return 0;
+      });
+    },
+    sortTasksByDueDate () {
+      this.tasksCopy.sort((a, b) => {
+        const dateA = a.duedate.split('.')
+        const dateB = b.duedate.split('.')
+        if (dateA[2] !== dateB[2]) {
+          return dateA[2] - dateB[2]
+        } else if (dateA[1] !== dateB[1]) {
+          return dateA[1] - dateB[1]
+        } else {
+          return dateA[0] - dateB[0]
+        }
+      })
+    },
     deleteTask (task) {
       axios.delete(`http://localhost:8080/api/v1/tasksss/${task.id}`)
         .then(response => {
           // Entfernt die Aufgabe aus der `tasks`-Liste
-          const index = this.tasks.indexOf(task)
-          if (index !== -1) {
-            this.tasks.splice(index, 1)
+          const taskindex = this.tasksCopy.indexOf(task)
+          if (taskindex !== -1) {
+            this.tasksCopy.splice(taskindex, 1)
           }
         })
         .catch(error => {
@@ -105,8 +158,45 @@ export default {
         element.style.textDecoration = 'line-through'
       }
     },
+    updateTaskStatus (task) {
+      const headers = new Headers()
+      headers.append('Content-Type', 'application/json')
+
+      const payload = JSON.stringify({
+        id: task.id,
+        status: 'abgeschlossen',
+        titel: task.status,
+        wiederholung: task.wiederholung,
+        duedate: task.duedate,
+        beschreibung: task.beschreibung,
+        mitarbeiter: task.mitarbeiter
+      })
+
+      const requestOptions = {
+        method: 'PUT',
+        headers: headers,
+        body: payload,
+        redirect: 'follow'
+      }
+      const m = `http://localhost:8080/api/v1/tasksss/${task.id}`
+      fetch(m, requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error))
+    },
+    showTaskCompletedWindow () {
+      const div = document.createElement('div')
+      div.innerHTML = 'Ihre Aufgabe wurde erledigt'
+      div.style.textAlign = 'center'
+      div.style.color = '#CD7F32'
+      document.body.appendChild(div)
+
+      setTimeout(function () {
+        div.style.display = 'none'
+      }, 5000)
+    },
     getEmptyMessage () {
-      return this.filteredTasks.length > 0 ? '' : ''
+      return this.filteredTasks.length > 0 ? '' : 'Keine aufgaben'
     },
 
     getAvatar (task) {
@@ -152,6 +242,15 @@ export default {
   float:right;
   margin-right: 20px;
   margin-top: -50px;
+}
+.dropdown{
+  background-color: #cd7f32;
+  color: white;
+  padding: 10px 15px;
+  padding: 5px 5px;
+  border-radius: 30px;border-radius: 0;
+  bottom: -20px;
+
 }
 
 </style>

@@ -28,7 +28,7 @@
             <option value="TAEGLICH">TAEGLICH</option>
             <option value="MONATLICH">MONATLICH</option>
             <option value="JAEHRLICH">JAEHRLICH</option>
-            <option value="UNKNOWN">UNKNOWN</option>
+            <option value="EINMALIG">EINMALIG</option>
           </select>
           <div class="invalid-feedback">
             Bitte wählen Sie eins aus.

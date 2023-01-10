@@ -42,6 +42,14 @@
           class="btn btn- btn-sm rounded-0"><img src="../assets/delete.png" height="20" width="20"/></i></a>
       </td>
     </tr>
+    <button class="dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Sortieren nach.
+    </button>
+    <ul class="dropdown-menu">
+      <li><button @click="sortTasksByTitel" class="dropdown-item" type="button">Titel</button></li>
+      <li><button @click="sortTasksByWiederholung" class="dropdown-item" type="button">Wiederholung</button></li>
+      <li><button @click="sortTasksByDueDate" class="dropdown-item" type="button">Fällig am/bis</button></li>
+    </ul>
     </tbody>
 
   </table>
@@ -78,6 +86,45 @@ export default {
     }
   },
   methods: {
+    sortTasksByWiederholung () {
+      this.tasksCopy.sort((a, b) => {
+        const repetitionA = a.wiederholung.toLowerCase();
+        const repetitionB = b.wiederholung.toLowerCase();
+        if (repetitionA < repetitionB) {
+          return -1;
+        }
+        if (repetitionA > repetitionB) {
+          return 1;
+        }
+        return 0;
+      });
+    },
+    sortTasksByTitel () {
+      this.tasksCopy.sort((a, b) => {
+        const titelA = a.status.toLowerCase();
+        const titelB = b.status.toLowerCase();
+        if (titelA < titelB) {
+          return -1;
+        }
+        if (titelA > titelB) {
+          return 1;
+        }
+        return 0;
+      });
+    },
+    sortTasksByDueDate () {
+      this.tasksCopy.sort((a, b) => {
+        const dateA = a.duedate.split('.')
+        const dateB = b.duedate.split('.')
+        if (dateA[2] !== dateB[2]) {
+          return dateA[2] - dateB[2]
+        } else if (dateA[1] !== dateB[1]) {
+          return dateA[1] - dateB[1]
+        } else {
+          return dateA[0] - dateB[0]
+        }
+      })
+    },
     deleteTask (task) {
       axios.delete(`http://localhost:8080/api/v1/tasksss/${task.id}`)
         .then(response => {
@@ -135,6 +182,15 @@ export default {
 {
   color:#bf8970;
   margin-bottom: 50px;
+}
+.dropdown{
+  background-color: #cd7f32;
+  color: white;
+  padding: 10px 15px;
+  padding: 5px 5px;
+  border-radius: 30px;border-radius: 0;
+  bottom: -20px;
+
 }
 
 </style>
